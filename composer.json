@@ -1,0 +1,26 @@
+{
+  "name": "skgroup/php-m3u-sdk",
+  "type": "library",
+  "description": "PHP M3U playlist generator",
+  "keywords": ["m3u8", "m3u", "hls", "skgroup"],
+  "minimum-stability": "stable",
+  "license": "MIT",
+
+  "authors": [
+    {
+      "name": "Stanislav Kiryukhin",
+      "email": "korsar.zn@gmail.com",
+      "role": "Founder and project lead"
+    }
+  ],
+
+  "require": {
+    "php": ">=5.4.0"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "sKGroup\\M3u\\": "src/"
+    }
+  }
+}
