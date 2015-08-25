@@ -99,6 +99,17 @@ class Generator implements GeneratorInterface
     }
 
     /**
+     * @param $uri
+     * @param int $duration
+     * @param null $title
+     */
+    protected function mediaSegmentTag($uri, $duration = -1, $title = null)
+    {
+        $this->tag(static::TAG_EXTINF, [$duration, $title]);
+        $this->string($uri);
+    }
+
+    /**
      * @param array $attributes
      * @return null|string
      */

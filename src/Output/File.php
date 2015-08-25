@@ -26,15 +26,13 @@ class File implements OutputInterface
 
     public function __construct()
     {
-        $this->path   = sys_get_temp_dir() . '/' .uniqid(time() . '_') . '.m3u8';
-        $this->handle = fopen($this->path, 'w');
+        $this->path = sys_get_temp_dir() . '/' .uniqid(time() . '_');
+        $this->file = new \SplFileObject($this->path, 'w');
     }
 
     public function __destruct()
     {
-        if (is_resource($this->handle)) {
-            fclose($this->handle);
-        }
+        $this->close();
 
         if (is_file($this->path)) {
             unlink($this->path);
@@ -54,6 +52,32 @@ class File implements OutputInterface
      */
     public function append($string)
     {
-        fwrite($this->handle, $string);
+        $this->getFile()->fwrite($string);
+    }
+
+    /**
+     * @param $dist
+     * @return bool
+     */
+    public function save($dist)
+    {
+        $this->close();
+        return rename($this->path, $dist);
+    }
+
+    /**
+     * @return \SplFileObject
+     */
+    protected function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @return void
+     */
+    protected function close()
+    {
+        $this->file = null;
     }
 }
