@@ -18,7 +18,7 @@ namespace sKGroup\M3u;
  * Class Playlist
  * @package sKGroup\M3u
  */
-class Playlist implements PlaylistInterface
+class Playlist implements PlaylistInterface, ObservableInterface
 {
     /**
      * @var int
@@ -35,6 +35,11 @@ class Playlist implements PlaylistInterface
      */
     private $targetDuration = 0;
 
+    /**
+     * @var ObserverInterface[]
+     */
+    private $observers = [];
+
 
     /**
      * @return int
@@ -50,6 +55,7 @@ class Playlist implements PlaylistInterface
     public function setVersion($version)
     {
         $this->version = $version;
+        $this->notifyObservers(__METHOD__, $version);
     }
 
     /**
@@ -66,6 +72,7 @@ class Playlist implements PlaylistInterface
     public function setTargetDuration($duration)
     {
         $this->targetDuration = $duration;
+        $this->notifyObservers(__METHOD__, $duration);
     }
 
 
@@ -76,16 +83,14 @@ class Playlist implements PlaylistInterface
      */
     public function addSegment($uri, $duration = -1, $title = null)
     {
-        $this->segments[] = [
+        $segment = [
             'uri'       => $uri,
             'duration'  => $duration,
             'title'     => $title
         ];
 
-        // auto detect MAX duration
-        if ($duration > 0 && ($v = ceil($duration)) > $this->getTargetDuration()) {
-            $this->setTargetDuration($v);
-        }
+        $this->segments[] = $segment;
+        $this->notifyObservers(__METHOD__, $segment);
     }
 
     /**
@@ -107,5 +112,37 @@ class Playlist implements PlaylistInterface
     public function getSegments()
     {
         return $this->segments;
+    }
+
+
+    /**
+     * @param ObserverInterface $observer
+     * @return mixed
+     */
+    public function attachObserver(ObserverInterface $observer)
+    {
+        $hash = spl_object_hash($observer);
+        $this->observers[$hash] = $observer;
+    }
+
+
+    /**
+     * @param ObserverInterface $observer
+     */
+    public function detachObserver(ObserverInterface $observer)
+    {
+        $hash = spl_object_hash($observer);
+        unset($this->observers[$hash]);
+    }
+
+    /**
+     * @param $method
+     * @param null $data
+     */
+    protected function notifyObservers($method, $data = null)
+    {
+        foreach ($this->observers as $observer) {
+            $observer->handleEvent($method, $this, $data);
+        }
     }
 }
