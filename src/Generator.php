@@ -63,7 +63,7 @@ class Generator implements GeneratorInterface
      */
     public function tag($tag, $attributes = null)
     {
-        if ($attributes) {
+        if ($attributes !== null) {
             if (is_array($attributes)) {
                 $attributes = $this->generateAttributes($attributes);
             } else {

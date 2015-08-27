@@ -23,6 +23,8 @@ interface GeneratorInterface
     const TAG_EXTINF            = '#EXTINF';
     const TAG_VERSION           = '#EXT-X-VERSION';
     const TAG_TARGET_DURATION   = '#EXT-X-TARGETDURATION';
+    const TAG_PLAYLIST_TYPE     = '#EXT-X-PLAYLIST-TYPE';
+    const TAG_MEDIA_SEQUENCE    = '#EXT-X-MEDIA-SEQUENCE';
     const TAG_ENDLIST           = '#EXT-X-ENDLIST';
 
     /**

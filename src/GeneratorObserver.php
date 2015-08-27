@@ -20,6 +20,12 @@ namespace sKGroup\M3u;
 class GeneratorObserver extends Generator implements ObserverInterface
 {
     /**
+     * @var bool
+     */
+    protected $isLiveStream = false;
+
+
+    /**
      * @param OutputInterface|null $output
      */
     public function __construct(OutputInterface $output = null)
@@ -44,9 +50,37 @@ class GeneratorObserver extends Generator implements ObserverInterface
                 $this->tag(static::TAG_TARGET_DURATION, $data);
                 break;
 
+            case 'setMediaSequence':
+                $this->tag(static::TAG_MEDIA_SEQUENCE, $data);
+                break;
+
+            case 'setType':
+                $this->tag(static::TAG_PLAYLIST_TYPE, $data);
+                break;
+
             case 'addSegment':
                 $this->mediaSegmentTag($data['uri'], $data['duration'], $data['title']);
                 break;
+        }
+    }
+
+    /**
+     * @param string $tag
+     * @param null $attributes
+     */
+    public function tag($tag, $attributes = null)
+    {
+        if ($tag == static::TAG_PLAYLIST_TYPE) {
+            $this->isLiveStream = $attributes == PlaylistInterface::TYPE_EVENT;;
+        }
+
+        parent::tag($tag, $attributes);
+    }
+
+    public function __destruct()
+    {
+        if (!$this->isLiveStream) {
+            $this->tag(static::TAG_ENDLIST);
         }
     }
 }

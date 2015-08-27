@@ -36,6 +36,16 @@ class Playlist implements PlaylistInterface, ObservableInterface
     private $targetDuration = 0;
 
     /**
+     * @var int
+     */
+    private $mediaSequence = 0;
+
+    /**
+     * @var string
+     */
+    private $type = self::TYPE_VOD;
+
+    /**
      * @var ObserverInterface[]
      */
     private $observers = [];
@@ -116,6 +126,40 @@ class Playlist implements PlaylistInterface, ObservableInterface
 
 
     /**
+     * @param int $sequence
+     */
+    public function setMediaSequence($sequence)
+    {
+        $this->mediaSequence = $sequence;
+        $this->notifyObservers(__METHOD__, $sequence);
+    }
+
+    /**
+     * @return int
+     */
+    public function getMediaSequence()
+    {
+        return $this->mediaSequence;
+    }
+
+    /**
+     * @param $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        $this->notifyObservers(__METHOD__, $type);
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * @param ObserverInterface $observer
      * @return mixed
      */
@@ -141,6 +185,8 @@ class Playlist implements PlaylistInterface, ObservableInterface
      */
     protected function notifyObservers($method, $data = null)
     {
+        $method = substr($method, strrpos($method, ':') + 1);
+
         foreach ($this->observers as $observer) {
             $observer->handleEvent($method, $this, $data);
         }

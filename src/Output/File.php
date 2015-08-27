@@ -19,15 +19,17 @@ use sKGroup\M3u\OutputInterface;
  * Class File
  * @package sKGroup\M3u\Output
  */
-class File implements OutputInterface
+class File extends Stream
 {
     protected $path;
     protected $handle;
 
     public function __construct()
     {
-        $this->path = sys_get_temp_dir() . '/' .uniqid(time() . '_');
-        $this->file = new \SplFileObject($this->path, 'w');
+        $this->path   = sys_get_temp_dir() . '/' .uniqid(time() . '_');
+        $this->handle = fopen($this->path, 'w');
+
+        parent::__construct($this->handle);
     }
 
     public function __destruct()
@@ -48,14 +50,6 @@ class File implements OutputInterface
     }
 
     /**
-     * @param string $string
-     */
-    public function append($string)
-    {
-        $this->getFile()->fwrite($string);
-    }
-
-    /**
      * @param $dist
      * @return bool
      */
@@ -66,18 +60,10 @@ class File implements OutputInterface
     }
 
     /**
-     * @return \SplFileObject
-     */
-    protected function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
      * @return void
      */
     protected function close()
     {
-        $this->file = null;
+        fclose($this->handle);
     }
 }

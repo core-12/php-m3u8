@@ -21,8 +21,8 @@ use sKGroup\M3u\Entity\Segment;
  */
 interface PlaylistInterface
 {
-    const TYPE_EVENT = 1;
-    const TYPE_VOD   = 2;
+    const TYPE_EVENT = 'EVENT';
+    const TYPE_VOD   = 'VOD';
 
     /**
      * @return int
@@ -61,4 +61,24 @@ interface PlaylistInterface
      * @return array
      */
     public function getSegments();
+
+    /**
+     * @param int $sequence
+     */
+    public function setMediaSequence($sequence);
+
+    /**
+     * @return int
+     */
+    public function getMediaSequence();
+
+    /**
+     * @param $type
+     */
+    public function setType($type);
+
+    /**
+     * @return string
+     */
+    public function getType();
 }
