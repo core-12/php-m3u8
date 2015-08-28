@@ -67,7 +67,7 @@ class Generator implements GeneratorInterface
             if (is_array($attributes)) {
                 $attributes = $this->generateAttributes($attributes);
             } else {
-                $attributes = ': ' . $attributes;
+                $attributes = ':' . $attributes;
             }
         }
 
@@ -125,7 +125,7 @@ class Generator implements GeneratorInterface
         }
 
         if ($attrs) {
-            return ':' . implode(', ', $attrs);
+            return ':' . implode(',', $attrs);
         } else {
             return null;
         }
