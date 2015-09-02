@@ -13,7 +13,6 @@
  */
 namespace sKGroup\M3u\Output;
 
-use sKGroup\M3u\OutputInterface;
 
 /**
  * Class File

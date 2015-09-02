@@ -39,25 +39,6 @@ class Generator implements GeneratorInterface
     }
 
     /**
-     * @param PlaylistInterface $playlist
-     * @return OutputInterface
-     */
-    public function generate(PlaylistInterface $playlist)
-    {
-        $this->tag(static::TAG_BEGIN);
-        $this->tag(static::TAG_VERSION, $playlist->getVersion());
-        $this->tag(static::TAG_TARGET_DURATION, $playlist->getTargetDuration());
-
-        foreach ($playlist->getSegments() as $segment) {
-            $this->tag(static::TAG_EXTINF, [$segment['duration'], $segment['title']]);
-            $this->string($segment['uri']);
-        }
-
-        $this->tag(static::TAG_ENDLIST);
-        return $this->getOutputProvider();
-    }
-
-    /**
      * @param string $tag
      * @param string|array $attributes
      */
@@ -72,6 +53,17 @@ class Generator implements GeneratorInterface
         }
 
         $this->string($tag . $attributes);
+    }
+
+    /**
+     * @param $uri
+     * @param int $duration
+     * @param null $title
+     */
+    public function tagMediaSegment($uri, $duration = -1, $title = null)
+    {
+        $this->tag(static::TAG_EXTINF, [$duration, $title]);
+        $this->string($uri);
     }
 
     /**
@@ -96,17 +88,6 @@ class Generator implements GeneratorInterface
     public function getOutputProvider()
     {
         return $this->outputProvider;
-    }
-
-    /**
-     * @param $uri
-     * @param int $duration
-     * @param null $title
-     */
-    protected function mediaSegmentTag($uri, $duration = -1, $title = null)
-    {
-        $this->tag(static::TAG_EXTINF, [$duration, $title]);
-        $this->string($uri);
     }
 
     /**

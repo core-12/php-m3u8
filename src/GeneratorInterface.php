@@ -33,12 +33,6 @@ interface GeneratorInterface
     public function __construct(OutputInterface $output = null);
 
     /**
-     * @param PlaylistInterface $playlist
-     * @return OutputInterface
-     */
-    public function generate(PlaylistInterface $playlist);
-
-    /**
      * @param string $tag
      * @param string|array $attributes
      */
