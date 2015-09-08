@@ -23,4 +23,9 @@ interface OutputInterface
      * @param string $string
      */
     public function append($string);
+
+    /**
+     * @return string
+     */
+    public function getContents();
 }

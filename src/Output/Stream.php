@@ -46,4 +46,12 @@ class Stream implements OutputInterface
         fwrite($this->stream, $string);
         fflush($this->stream);
     }
+
+    /**
+     * @return string
+     */
+    public function getContents()
+    {
+        return stream_get_contents($this->stream, -1, 0);
+    }
 }
