@@ -1,6 +1,6 @@
 <?php
 /**
- * Project: php-m3u8-sdk
+ * Project: php-m3u8
  * File: Generator.php 2015-08-20 19:59
  * ----------------------------------------------
  *
@@ -11,13 +11,13 @@
  * All Rights Reserved.
  * ----------------------------------------------
  */
-namespace sKGroup\M3u;
+namespace Core12\M3u8;
 
-use sKGroup\M3u\Output;
+use Core12\M3u8\Output;
 
 /**
  * Class Generator
- * @package sKGroup\M3u
+ * @package Core12\M3u8
  */
 class Generator implements GeneratorInterface
 {

@@ -1,8 +1,8 @@
 {
-  "name": "skgroup/php-m3u-sdk",
+  "name": "core-12/php-m3u8",
   "type": "library",
   "description": "PHP M3U playlist generator",
-  "keywords": ["m3u8", "m3u", "hls", "skgroup"],
+  "keywords": ["m3u8", "m3u", "hls", "core12"],
   "minimum-stability": "stable",
   "license": "MIT",
 
@@ -20,7 +20,7 @@
 
   "autoload": {
     "psr-4": {
-      "sKGroup\\M3u\\": "src/"
+      "Core12\\M3u8\\": "src/"
     }
   }
 }

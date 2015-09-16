@@ -1,6 +1,6 @@
 <?php
 /**
- * Project: php-m3u8-sdk
+ * Project: php-m3u8
  * File: OutputInterface.php 2015-08-18 13:40
  * ----------------------------------------------
  *
@@ -11,11 +11,11 @@
  * All Rights Reserved.
  * ----------------------------------------------
  */
-namespace sKGroup\M3u;
+namespace Core12\M3u8;
 
 /**
  * Interface OutputInterface
- * @package sKGroup\M3u
+ * @package Core12\M3u8
  */
 interface OutputInterface
 {

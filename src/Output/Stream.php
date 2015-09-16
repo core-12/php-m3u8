@@ -1,6 +1,6 @@
 <?php
 /**
- * Project: php-m3u8-sdk
+ * Project: php-m3u8
  * File: Stream.php 2015-08-25 16:53
  * ----------------------------------------------
  *
@@ -11,13 +11,13 @@
  * All Rights Reserved.
  * ----------------------------------------------
  */
-namespace sKGroup\M3u\Output;
+namespace Core12\M3u8\Output;
 
-use sKGroup\M3u\OutputInterface;
+use Core12\M3u8\OutputInterface;
 
 /**
  * Class Stream
- * @package sKGroup\M3u\Output
+ * @package Core12\M3u8\Output
  */
 class Stream implements OutputInterface
 {
